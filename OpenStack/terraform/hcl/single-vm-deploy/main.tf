@@ -50,7 +50,7 @@ resource "openstack_compute_instance_v2" "sinlge-vm" {
 
   network {
     name = "${var.openstack_network_name}",
-    #fixed_ip_v4="${var.openstack_network_ip}"
+    fixed_ip_v4=""   #"${var.openstack_network_ip}"
   }
 
   # Specify the ssh connection
@@ -77,6 +77,6 @@ depends_on = ["openstack_networking_router_interface_v2.terraform"]
 }
 
 output "sinlge-vm-ip" {
-  #value = "${openstack_compute_instance_v2.single-vm.*.network.0.fixed_ip_v4}"
-  value = "${openstack_compute_floatingip_v2.terraform.address}"
+  value = "${openstack_compute_instance_v2.single-vm.*.network.0.fixed_ip_v4}"
+ # value = "${openstack_compute_floatingip_v2.terraform.address}"
 }
