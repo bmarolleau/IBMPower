@@ -42,7 +42,7 @@ provider "openstack" {
 
 variable "number_of_instances" {}
 
-resource "openstack_compute_instance_v2" "sinlge-vm" {
+resource "openstack_compute_instance_v2" "single-vm" {
   count     = "${var.number_of_instances}"
   name      = "${format("terraform-single-vm-%02d", count.index+1)}"
   image_id  = "${var.openstack_image_id}"
