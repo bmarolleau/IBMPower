@@ -31,6 +31,9 @@ variable "image_id_username" {
 variable "image_id_password" {
   description = "The password of the username to SSH into image ID"
 }
+variable "pool" {
+  default = "VLAN354"
+}
 
 provider "openstack" {
   insecure = true
@@ -57,7 +60,13 @@ resource "openstack_compute_instance_v2" "sinlge-vm" {
     timeout  = "10m"
   }
 }
+#get address from the pool
+resource "openstack_compute_floatingip_v2" "terraform" {
+pool = "${var.pool}"
+depends_on = ["openstack_networking_router_interface_v2.terraform"]
+}
 
 output "sinlge-vm-ip" {
-  value = "${openstack_compute_instance_v2.single-vm.*.network.0.fixed_ip_v4}"
+  #value = "${openstack_compute_instance_v2.single-vm.*.network.0.fixed_ip_v4}"
+  value = "${openstack_compute_floatingip_v2.terraform.address}"
 }
