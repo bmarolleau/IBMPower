@@ -50,7 +50,7 @@ resource "openstack_compute_instance_v2" "sinlge-vm" {
 
   network {
     name = "${var.openstack_network_name}",
-    fixed_ip_v4="${var.openstack_network_ip}"
+    #fixed_ip_v4="${var.openstack_network_ip}"
   }
 
   # Specify the ssh connection
