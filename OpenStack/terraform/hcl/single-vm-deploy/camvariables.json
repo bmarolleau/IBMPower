@@ -46,7 +46,8 @@
       "secured": false,
       "required": true,
       "immutable": false,
-      "group_name": "virtualmachine"
+      "group_name": "virtualmachine",
+      "default": "e60beed6-25cb-431b-8561-86f2fe10f3d6"
     },
     {
       "name":  "number_of_instances",
@@ -57,7 +58,8 @@
       "secured": false,
       "required": true,
       "immutable": false,
-      "group_name": "virtualmachine"
+      "group_name": "virtualmachine",
+      "default": ""
     },
     {
       "name":  "openstack_flavor_id",
@@ -68,7 +70,8 @@
       "secured": false,
       "required": true,
       "immutable": false,
-      "group_name": "virtualmachine"
+      "group_name": "virtualmachine",
+      "default": "b542658b-2de5-4bdd-998a-1e1fc168dcde"
     },
     {
       "name":  "openstack_network_name",
@@ -79,7 +82,8 @@
       "secured": false,
       "required": true,
       "immutable": false,
-      "group_name": "virtualmachine"
+      "group_name": "virtualmachine",
+      "default": "VLAN354"
     },
     {
       "name":  "image_id_username",
