@@ -92,9 +92,10 @@
       "hidden": false,
       "label": "Openstack Image Username",
       "secured": false,
-      "required": true,
+      "required": false,
       "immutable": false,
-      "group_name": "virtualmachine"
+      "group_name": "virtualmachine",
+      "default": "qsecofr"
     },
     {
       "name":  "image_id_password",
@@ -103,9 +104,10 @@
       "hidden": false,
       "label": "Openstack Image Password",
       "secured": true,
-      "required": true,
+      "required": false,
       "immutable": false,
-      "group_name": "virtualmachine"
+      "group_name": "virtualmachine",
+      "default": "lemamero"
     }
 
   ],
