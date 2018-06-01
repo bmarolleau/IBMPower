@@ -34,6 +34,9 @@ variable "image_id_password" {
 variable "pool" {
   default = "VLAN354"
 }
+variable "ibm_stack_name" {
+  description = "Stack Name"
+}
 
 provider "openstack" {
   insecure = true
