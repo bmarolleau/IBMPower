@@ -59,7 +59,7 @@
       "required": true,
       "immutable": false,
       "group_name": "virtualmachine",
-      "default": ""
+      "default": "1"
     },
     {
       "name":  "openstack_flavor_id",
