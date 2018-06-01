@@ -60,21 +60,21 @@ resource "openstack_compute_instance_v2" "single-vm" {
     timeout  = "10m"
   }
 }
-resource "openstack_networking_router_v2" "terraform" {
-name = "terraform"
-admin_state_up = "true"
-external_gateway = "10.3.54.254"
-}
+#resource "openstack_networking_router_v2" "terraform" {
+#name = "terraform"
+#admin_state_up = "true"
+#external_gateway = "10.3.54.254"
+#}
 
 #get address from the pool
-resource "openstack_networking_router_interface_v2" "terraform" {
-router_id = "${openstack_networking_router_v2.terraform.id}"
-#subnet_id = "${openstack_networking_subnet_v2.terraform.id}"
-}
-resource "openstack_compute_floatingip_v2" "terraform" {
-pool = "${var.pool}"
-depends_on = ["openstack_networking_router_interface_v2.terraform"]
-}
+#resource "openstack_networking_router_interface_v2" "terraform" {
+#router_id = "${openstack_networking_router_v2.terraform.id}"
+##subnet_id = "${openstack_networking_subnet_v2.terraform.id}"
+#}
+#resource "openstack_compute_floatingip_v2" "terraform" {
+#pool = "${var.pool}"
+#depends_on = ["openstack_networking_router_interface_v2.terraform"]
+#}
 
 output "sinlge-vm-ip" {
   value = "${openstack_compute_instance_v2.single-vm.*.network.0.fixed_ip_v4}"
