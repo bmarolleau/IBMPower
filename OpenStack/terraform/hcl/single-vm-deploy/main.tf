@@ -46,7 +46,8 @@ resource "openstack_compute_instance_v2" "sinlge-vm" {
   flavor_id = "${var.openstack_flavor_id}"
 
   network {
-    name = "${var.openstack_network_name}"
+    name = "${var.openstack_network_name}",
+    fixed_ip_v4="${var.openstack_network_ip}"
   }
 
   # Specify the ssh connection
