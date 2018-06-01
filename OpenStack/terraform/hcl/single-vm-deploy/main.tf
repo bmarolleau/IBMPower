@@ -44,9 +44,9 @@ variable "number_of_instances" {}
 
 resource "openstack_compute_instance_v2" "single-vm" {
   count     = "${var.number_of_instances}"
-  name      = "${format("terraform-single-vm-%02d", count.index+1)}"
+  name      = "${ibm_stack_name}${format("$terraform-ibmi-vm-%02d", count.index+1)}"
   image_id  = "${var.openstack_image_id}"
-  flavor_id = "${var.openstack_flavor_id}"
+  flavor_id = "${var.openstack_flavor_id}"   
 
   network {
     name = "${var.openstack_network_name}",
