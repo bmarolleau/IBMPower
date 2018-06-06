@@ -1,6 +1,8 @@
 {
-  "input_datatypes": [],
   "output_datatype": "content_template_output",
+  "input_datatypes": [ ],
+  "input_namespaces": [ ],
+  "output_namespace": "",
   "input_groups": [
     {
       "name": "cloud",
@@ -19,116 +21,122 @@
       "label": "Environment"
     }
   ],
-  "output_groups": [
-    {
-      "name": "content_template_output",
-      "label": "Outputs"
-    }
-  ],
+  "output_groups": [  {
+    "name": "content_template_output",
+    "label": "Outputs"
+  } ],
   "template_input_params": [
     {
-      "name": "ibm_stack_name",
-      "type": "string",
-      "description": "A unique stack name.",
-      "hidden": true,
-      "label": "A unique stack name.",
-      "secured": false,
-      "required": true,
-      "immutable": false,
-      "group_name": "environment"
-    },
-    {
-      "name":  "openstack_image_id",
-      "type": "string",
+      "name": "openstack_image_id",
+      "label": "Openstack Image Id",
       "description": "The ID of the image to be used for deploy operations.",
-      "hidden": false,
-      "label": "Openstack Image ID",
-      "secured": false,
+      "type": "string",
+      "default": "",
+      "validation": "",
       "required": true,
+      "secured": false,
+      "hidden": false,
       "immutable": false,
-      "group_name": "virtualmachine",
-      "default": "e60beed6-25cb-431b-8561-86f2fe10f3d6"
+      "immutable_after_create": false
     },
     {
-      "name":  "number_of_instances",
-      "type": "string",
-      "description": "The number of instances to provision.",
-      "hidden": false,
-      "label": "Number of Instances to deploy",
-      "secured": false,
-      "required": true,
-      "immutable": false,
-      "group_name": "virtualmachine",
-      "default": "1"
-    },
-    {
-      "name":  "openstack_flavor_id",
-      "type": "string",
+      "name": "openstack_flavor_id",
+      "label": "Openstack Flavor Id",
       "description": "The ID of the flavor to be used for deploy operations.",
-      "hidden": false,
-      "label": "Openstack Flavor ID",
-      "secured": false,
+      "type": "string",
+      "default": "",
+      "validation": "",
       "required": true,
+      "secured": false,
+      "hidden": false,
       "immutable": false,
-      "group_name": "virtualmachine",
-      "default": "b542658b-2de5-4bdd-998a-1e1fc168dcde"
+      "immutable_after_create": false
     },
     {
-      "name":  "openstack_network_name",
-      "type": "string",
-      "description": "The name of the network to be used for deploy operations.",
-      "hidden": false,
+      "name": "openstack_network_name",
       "label": "Openstack Network Name",
-      "secured": false,
+      "description": "The name of the network to be used for deploy operations.",
+      "type": "string",
+      "default": "",
+      "validation": "",
       "required": true,
+      "secured": false,
+      "hidden": false,
       "immutable": false,
-      "group_name": "virtualmachine",
-      "default": "VLAN354"
+      "immutable_after_create": false
     },
     {
-      "name":  "image_id_username",
-      "type": "string",
+      "name": "image_id_username",
+      "label": "Image Id Username",
       "description": "The username to SSH into image ID",
-      "hidden": false,
-      "label": "Openstack Image Username",
+      "type": "string",
+      "default": "",
+      "validation": "",
+      "required": true,
       "secured": false,
-      "required": false,
+      "hidden": false,
       "immutable": false,
-      "group_name": "virtualmachine",
-      "default": "qsecofr"
+      "immutable_after_create": false
     },
     {
-      "name":  "image_id_password",
-      "type": "password",
+      "name": "image_id_password",
+      "label": "Image Id Password",
       "description": "The password of the username to SSH into image ID",
-      "hidden": false,
-      "label": "Openstack Image Password",
-      "secured": true,
-      "required": false,
-      "immutable": false,
-      "group_name": "virtualmachine",
-      "default": "lemamero"
-    }
-
-  ],
-  "template_output_params": [
-    {
-      "name": "single-vm-ip",
-      "label": "IP Addresss of Virtual Machine",
-      "description": "The Public and Public IP address",
       "type": "string",
-      "hidden": false,
+      "default": "",
+      "validation": "",
+      "required": true,
       "secured": false,
-      "group_name": "content_template_output"
+      "hidden": false,
+      "immutable": false,
+      "immutable_after_create": false
     },
     {
-      "name": "stack_id",
-      "label": "Generated Stack ID",
-      "description": "The generated stack id",
+      "name": "pool",
+      "label": "Pool",
+      "description": "Pool",
       "type": "string",
-      "hidden": false,
+      "default": "VLAN354",
+      "validation": "",
+      "required": true,
       "secured": false,
-      "group_name": "content_template_output"
+      "hidden": false,
+      "immutable": false,
+      "immutable_after_create": false
+    },
+    {
+      "name": "ibm_stack_name",
+      "label": "Ibm Stack Name",
+      "description": "Stack Name",
+      "type": "string",
+      "default": "",
+      "validation": "",
+      "required": true,
+      "secured": false,
+      "hidden": false,
+      "immutable": false,
+      "immutable_after_create": false
+    },
+    {
+      "name": "number_of_instances",
+      "label": "Number Of Instances",
+      "description": "Number Of Instances",
+      "type": "string",
+      "default": "",
+      "validation": "",
+      "required": true,
+      "secured": false,
+      "hidden": false,
+      "immutable": false,
+      "immutable_after_create": false
     }
-  ]
+  ],
+  "template_output_params": [  {
+    "name": "sinlge-vm-ip",
+    "label": "Sinlge Vm Ip",
+    "description": "Sinlge Vm Ip",
+    "secured": false,
+    "hidden": false,
+    "shortname": ""
+  } ]
 }
