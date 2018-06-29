@@ -1,0 +1,14 @@
+{
+   "name": "PowerAI-Cloud",
+   "description": "Description for PowerAI-Cloud.",
+   "type": "userCreated",
+   "manifest": {
+     "template_type": "Terraform",
+     "template_format": "HCL",
+     "template_provider": "Other"
+   },
+   "metadata": {
+     "displayName": "PowerAI-Cloud",
+     "bullets": []
+   }
+ }
