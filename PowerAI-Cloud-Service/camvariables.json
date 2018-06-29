@@ -1,0 +1,145 @@
+{
+  "service": {
+    "specVersion": "v2",
+    "catalog_metadata": {
+      "name": "PowerAI_v1.5.2_V4",
+      "description": "",
+      "longDescription": "",
+      "providerDisplayName": "",
+      "image": "serviceicon_1.svg",
+      "category": "AI-Datascience",
+      "bullets": [
+        {
+          "title": "Cloud Provider",
+          "description": "MOP AI Cloud Team  - IBM Cloud Private / POWER9 L& LC"
+        }
+      ],
+      "author": "admin"
+    },
+    "tags": [],
+    "parameters": [
+      {
+        "name": "icp_token",
+        "label": "icp_token",
+        "customtype": "string",
+        "type": "string",
+        "immutable": false,
+        "hidden": false,
+        "required": false,
+        "secured": false,
+        "description": ""
+      },
+      {
+        "name": "pv_name",
+        "label": "pv_name",
+        "customtype": "string",
+        "type": "string",
+        "immutable": false,
+        "hidden": false,
+        "required": false,
+        "secured": false,
+        "description": "",
+        "default": "powerai-pv"
+      },
+      {
+        "name": "pv_path",
+        "label": "pv_path",
+        "customtype": "string",
+        "type": "string",
+        "immutable": false,
+        "hidden": false,
+        "required": false,
+        "secured": false
+      }
+    ],
+    "flow": {
+      "conditions": [],
+      "templates": [
+        {
+          "Create Persistent Volume": {
+            "title": "Create Persistent Volume",
+            "template_name": "Create Persistent Volume",
+            "version": "v1.0.0",
+            "id": "createpe44157402",
+            "template_type": "Terraform",
+            "template_content_type": "Other",
+            "template_provider": "Other",
+            "instance_name": "",
+            "cloud_connection_name": "Other",
+            "template_data_objects": {},
+            "template_params": {
+              "icp_token": "${parameters.icp_token}",
+              "pv_name": "${parameters.pv_name}",
+              "pv_path": "${parameters.pv_path}"
+            },
+            "outputs": [
+              "pv_name"
+            ]
+          }
+        },
+        {
+          "local-charts/nvidia-powerai": {
+            "title": "local-charts/nvidia-powerai",
+            "template_name": "nvidia-powerai",
+            "version": "0.2.1",
+            "id": "localchaf1a7a9bf",
+            "template_type": "Helm",
+            "template_content_type": "IBM Cloud Private",
+            "template_provider": "IBM Cloud Private",
+            "instance_name": "",
+            "cloud_connection_name": "ICPConnection",
+            "template_dataobjects": {},
+            "template_params": {
+              "namespace": "default",
+              "replicaCount": 1,
+              "image-repository": "mycluster.icp:8500/test-namespace/powerai-152",
+              "image-tag": 0.1,
+              "image-pullPolicy": "IfNotPresent",
+              "service-type": "NodePort",
+              "service-port": 22,
+              "ingress-enabled": "",
+              "ingress-path": "/",
+              "ingress-hosts-0": "chart-example.local",
+              "nameOverride": "",
+              "fullnameOverride": "",
+              "persistence-enabled": true,
+              "persistence-useDynamicProvisioning": "",
+              "databasePVC-name": "powerai-pvc",
+              "databasePVC-storageClassName": "",
+              "databasePVC-existingClaimName": "",
+              "size": "10Gi"
+            },
+            "outputs": [],
+            "template_data_objects": {}
+          }
+        }
+      ],
+      "resthooks": [],
+      "notifications": [
+        {
+          "emailnotification": {
+            "title": "emailnotification",
+            "type": "email",
+            "id": "emailnot3eb2dd50",
+            "sender": "CAMadmin",
+            "receiverList": "benoit.marolleau@fr.ibm.com",
+            "subject": "PowerAI Service Details",
+            "body": "${templates.localchaf1a7a9bf.stack_message}"
+          }
+        }
+      ],
+      "sequence": {
+        "0": "createpe44157402",
+        "1": "localchaf1a7a9bf",
+        "2": "emailnot3eb2dd50"
+      }
+    },
+    "plans": [
+      {
+        "name": "Standard",
+        "description": "PowerAI 1.5.2 - Python 2.x -  1 x P100 NVLINK - 8 threads - 64GB RAM",
+        "plan_parameters": []
+      }
+    ]
+  }
+}

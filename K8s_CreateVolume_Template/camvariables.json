@@ -1,0 +1,43 @@
+{
+  "template_input_params": [
+    {
+      "name": "icp_token",
+      "description": "ICP Token Value",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "icp_token",
+      "hidden": false,
+      "immutable": false
+    },
+    {
+      "name": "pv_name",
+      "description": "Persistent Volume Name",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "pv_name",
+      "hidden": false,
+      "immutable": false
+    },
+    {
+      "name": "pv_path",
+      "description": "Persistent Volume Path",
+      "type": "string",
+      "required": true,
+      "secured": false,
+      "label": "pv_path",
+      "hidden": false,
+      "immutable": false
+    }
+  ],
+  "template_output_params": [
+    {
+      "name": "pv_name",
+      "label": "pv_name",
+      "description": "",
+      "secured": false,
+      "hidden": false
+    }
+  ]
+}
