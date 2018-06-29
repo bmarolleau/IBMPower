@@ -5,7 +5,8 @@ This example provision an IBM i VM/LPAR from CAM using an OpenStack Cloud Connec
 It highlights how to perform a semi-complex deployment
 and can serve as a template to bootstrap whatever applications are of interest
 for your environment.
-Soon:  PowerAI & GPU as Service Cloud Solution with K8s on POWER8/9 
+* Soon:  PowerAI & GPU as Service Cloud Solution with K8s on POWER8/9 
+* Contact us for more information
 
 Solution Overview : 
 -----------
