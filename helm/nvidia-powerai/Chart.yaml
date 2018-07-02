@@ -2,5 +2,4 @@ apiVersion: v1
 appVersion: "1.1"
 description: A Helm chart for Kubernetes PowerAI152
 name: nvidia-powerai
-version: 0.3.4
-#icon: "./powerai.jpg"
+version: 0.3.9

@@ -12,22 +12,25 @@ image:
 service:
   type: NodePort
   port: 22 
+  externalIPs:
+    - 10.3.50.31
 
 ingress:
   enabled: false
   annotations: {}
  # kubernetes.io/ingress.class: nginx
   #kubernetes.io/tls-acme: "true"
-  path: /
+  path: /aivision
   hosts:
-    - chart-example.local
+    - example.local
   tls: []
   #  - secretName: chart-example-tls
   #    hosts:
   #      - chart-example.local
 
-resources: {}
-  # We usually recommend not to specify default resources and to leave this as a conscious
+resources: 
+  gpu: 0   
+# We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
   # resources, such as Minikube. If you do want to specify resources, uncomment the following
   # lines, adjust them as necessary, and remove the curly braces after 'resources:'.
@@ -55,13 +58,15 @@ persistence:
   accessMode: ReadWriteMany 
   size: 10Gi 
 
-databasePVC:
-  name: "powerai-pvc"
-  ## specify the storageClassName you want to use
+#databasePVC:
+#  name: "powerai-pvc"
+#  ## specify the storageClassName you want to use
   ## if you don't specify a storageClassName it will use the default
-  storageClass: ""
-  storageClassName: ""
+#  storageClass: ""
+#  storageClassName: ""
   ## Specify the name of the Existing Claim to be used by your application
   ## empty string means don't use an existClaim
-  existingClaimName: ""
-  size: 10Gi
+#  existingClaimName: ""
+#  size: 10Gi
+
+license: "not accepted"

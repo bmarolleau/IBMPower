@@ -19,19 +19,38 @@ spec:
         app: {{ template "nvidia-powerai.name" . }}
         release: {{ .Release.Name }}
     spec:
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: beta.kubernetes.io/arch
+                operator: In
+                values:
+                - "ppc64le"  
+
       containers:
-        - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
-          ports:
-            - name: ssh-powerai 
-              containerPort: 22 
-              protocol: TCP
-          resources:
-          volumeMounts:
-            - name: datavol
-              mountPath: /home
+      - name: {{ .Chart.Name }}
+        image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+        imagePullPolicy: {{ .Values.image.pullPolicy }}
+        ports:
+        - name: ssh-powerai 
+          containerPort: 22 
+          protocol: TCP
+        resources:
+          limits:
+            alpha.kubernetes.io/nvidia-gpu: {{ .Values.resources.gpu }}
+        env:
+        {{- if (eq .Values.license "accept") }}
+        - name: LICENSE
+          value: "yes"
+        {{- end }} 
+        volumeMounts:
+        - name: datavol
+          mountPath: /home
       volumes:
       - name: datavol
         persistentVolumeClaim:
           claimName: "{{ .Release.Name }}-{{ .Values.name }}"
+
+

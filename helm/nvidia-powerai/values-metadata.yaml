@@ -1,0 +1,10 @@
+resources:
+  __metadata:
+    label: "Resources"
+  gpu:
+    __metadata:
+      name: "gpu"    
+      label: "GPU Limits"
+      description: "Number of GPUs to allocate to the pod.  Use 0 to deploy without GPUs."
+      type: "string"
+required: false
