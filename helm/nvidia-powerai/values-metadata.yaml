@@ -1,10 +1,86 @@
+## Metadata for IBM PowerAI POD configuration
+## This metadata is used to augment the value.yaml to drive ICP UI for configuration of the Helm chart installation
+
+## Resource requests and limits configuration metadata
 resources:
   __metadata:
-    label: "Resources"
-  gpu:
-    __metadata:
-      name: "gpu"    
-      label: "GPU Limits"
-      description: "Number of GPUs to allocate to the pod.  Use 0 to deploy without GPUs."
-      type: "string"
-required: false
+    label: "Resource configuration"
+  requests:
+    cpu: 
+      __metadata: 
+        label: "CPU request"
+        description: "The requested CPU"
+        type: "string"
+        required: true
+        options:
+        - label: "1"
+          value: "1"
+        - label: "2"
+          value: "2"
+        - label: "4"
+          value: "4"
+        - label: "8"
+          value: "8"
+        - label: "16"
+          value: "16"
+    memory: 
+      __metadata: 
+        label: "Memory request"
+        description: "The memory request"
+        type: "string"
+        required: true
+    gpu:
+      __metadata:
+        label: "GPU request"
+        description: "The GPU request"
+        type: "string"
+        required: true
+        options:
+        - label: "No GPU"
+          value: "0" 
+        - label: "1"
+          value: "1"
+        - label: "2"
+          value: "2"
+        - label: "4"
+          value: "4"
+  limits:
+    cpu: 
+      __metadata: 
+        label: "CPU limit"
+        description: "The CPU limit"
+        type: "string"
+        required: true
+        options:
+        - label: "1"
+          value: "1"
+        - label: "2"
+          value: "2"
+        - label: "4"
+          value: "4"
+        - label: "8"
+          value: "8"
+        - label: "16"
+          value: "16"
+    memory: 
+      __metadata: 
+        label: "Memory limit"
+        description: "The memeory limit"
+        type: "string"
+        required: true   
+    gpu:
+      __metadata:
+        label: "GPU limit"
+        description: "The GPU limit"
+        type: "string"
+        required: true
+        options:
+        - label: "No GPU"
+          value: "0"
+        - label: "1"
+          value: "1"
+        - label: "2"
+          value: "2"
+        - label: "4"
+          value: "4"
+

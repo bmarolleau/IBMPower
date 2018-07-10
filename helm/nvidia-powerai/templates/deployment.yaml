@@ -39,7 +39,13 @@ spec:
           protocol: TCP
         resources:
           limits:
-            alpha.kubernetes.io/nvidia-gpu: {{ .Values.resources.gpu }}
+            alpha.kubernetes.io/nvidia-gpu: {{ .Values.resources.limits.gpu }}
+            memory: {{ .Values.resources.limits.memory }} 
+            cpu: {{ .Values.resources.limits.cpu }}
+          requests:
+            alpha.kubernetes.io/nvidia-gpu: {{ .Values.resources.requests.gpu }}
+            memory: {{ .Values.resources.requests.memory }}
+            cpu: {{ .Values.resources.requests.cpu }}
         env:
         {{- if (eq .Values.license "accept") }}
         - name: LICENSE

@@ -14,12 +14,12 @@ spec:
   - name: "{{ .Release.Name }}-test-nvidia-smi"
     image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
     command: [ "/bin/bash", "-c" ]    
-    {{- if .Values.resources.gpu }}
+    {{- if .Values.resources.requests.gpu }}
     args: [ "nvidia-smi;" ]
     {{- else }}
     args: [ "echo PowerAI;" ]
     {{- end }}
     resources:
       limits:
-        alpha.kubernetes.io/nvidia-gpu: {{ .Values.resources.gpu }}
+        alpha.kubernetes.io/nvidia-gpu: {{ .Values.resources.limits.gpu }}
     restartPolicy: Never
