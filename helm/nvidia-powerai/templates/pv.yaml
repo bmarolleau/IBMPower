@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: "{{ .Release.Name }}-{{ .Values.name }}"  
+spec:
+  capacity:
+    storage: 10Gi
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  claimRef:
+    namespace:  {{ .Values.namespace }} 
+    name: "{{ .Release.Name }}-{{ .Values.name }}"  
+  hostPath:
+    path:  {{ .Values.persistence.path }} 
+
