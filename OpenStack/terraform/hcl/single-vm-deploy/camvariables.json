@@ -132,9 +132,9 @@
     }
   ],
   "template_output_params": [  {
-    "name": "sinlge-vm-ip",
-    "label": "Sinlge Vm Ip",
-    "description": "Sinlge Vm Ip",
+    "name": "single-vm-ip",
+    "label": "Single Vm Ip",
+    "description": "Single Vm Ip",
     "secured": false,
     "hidden": false,
     "shortname": ""
