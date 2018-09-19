@@ -7,6 +7,7 @@ and can serve as a template to bootstrap whatever applications are of interest
 for your environment.
 * Soon:  PowerAI & GPU as Service Cloud Solution with K8s on POWER8/9 
 * Contact us for more information
+* Quick demo in video here https://ibm.ent.box.com/v/ibmi-powervc-cam-icp-demo1
 
 Solution Overview : 
 -----------
