@@ -1,0 +1,79 @@
+{
+  "service": {
+    "specVersion": "v3",
+    "catalog_metadata": {
+      "name": "PowerVM-IBMi",
+      "description": "",
+      "image": "serviceicon_1.svg",
+      "category": "PowerVM LPAR",
+      "bullets": [
+        {
+          "title": "Cloud Provider",
+          "description": "IBM Bluemix Platform"
+        }
+      ],
+      "providerDisplayName": "IBM",
+      "longDescription": "",
+      "documentationUrl": "",
+      "supportUrl": "",
+      "bindable": false,
+      "updatable": "",
+      "author": "admin"
+    },
+    "tags": [],
+    "actions": [
+      {
+        "type": "provision",
+        "name": "Provision",
+        "description": "Default action for deployment of service",
+        "input_parameters": [],
+        "flow": {
+          "conditions": [],
+          "templates": [
+            {
+              "IBM PowerVC Single Virtual Machine": {
+                "title": "IBM PowerVC Single Virtual Machine_d08233",
+                "template_name": "IBM PowerVC Single Virtual Machine",
+                "version": "master",
+                "id": "ibmpower304cc14a",
+                "template_type": "Terraform",
+                "template_content_type": "OpenStack",
+                "template_provider": "OpenStack",
+                "instance_name": "",
+                "cloud_connection_name": "PowerVC-MOP",
+                "template_data_objects": {},
+                "template_params": {
+                  "openstack_image_id": "",
+                  "openstack_flavor_id": "",
+                  "openstack_network_name": "",
+                  "image_id_username": "",
+                  "image_id_password": "",
+                  "pool": "VLAN354",
+                  "ibm_stack_name": "",
+                  "number_of_instances": ""
+                },
+                "outputs": [
+                  "single-vm-ip"
+                ]
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [],
+          "sequence": {
+            "0": "ibmpower304cc14a"
+          }
+        },
+        "output_parameters": []
+      }
+    ],
+    "plans": [
+      {
+        "name": "Standard",
+        "description": "To deploy a Standard plan",
+        "actions": [],
+        "plan_parameters": []
+      }
+    ]
+  }
+}
