@@ -43,14 +43,14 @@
                 "cloud_connection_name": "PowerVC-MOP",
                 "template_data_objects": {},
                 "template_params": {
-                  "openstack_image_id": "",
-                  "openstack_flavor_id": "",
+                  "openstack_image_id": "f523cfb3-38b7-4d91-955c-23428780ed3e",
+                  "openstack_flavor_id": "8c4c660a-fc3d-47cf-9555-bad519efa08a",
                   "openstack_network_name": "",
                   "image_id_username": "",
                   "image_id_password": "",
                   "pool": "VLAN354",
                   "ibm_stack_name": "",
-                  "number_of_instances": ""
+                  "number_of_instances": "1"
                 },
                 "outputs": [
                   "single-vm-ip"
