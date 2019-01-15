@@ -1,0 +1,229 @@
+{
+  "service": {
+    "specVersion": "v3",
+    "catalog_metadata": {
+      "name": "IBM i VM as a Service",
+      "description": "IBM i 7.2/7.3 Virtual Machines available within 2 minutes for any projects. ",
+      "longDescription": "",
+      "providerDisplayName": "IBM",
+      "image": "serviceicon_1.svg",
+      "category": "AI-Cloud",
+      "bullets": [
+        {
+          "title": "1 VM on POWER8/9 Server + IBM i 7.x Operating System",
+          "description": "VM with 2 vCPU (SMT8) , 16GB RAM, and 100 GB System ASP"
+        }
+      ],
+      "author": "admin",
+      "documentationUrl": "",
+      "supportUrl": "",
+      "bindable": false,
+      "updatable": ""
+    },
+    "tags": [],
+    "actions": [
+      {
+        "type": "provision",
+        "name": "Provision",
+        "description": "Default action for deployment of service",
+        "input_parameters": [
+          {
+            "name": "OSVersion",
+            "label": "OS Version",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "options": [
+              {
+                "label": "IBM i 7.2",
+                "value": "IBMi7.2",
+                "default": false
+              },
+              {
+                "label": "IBM i 7.3",
+                "value": "IBMi7.3",
+                "default": true
+              }
+            ]
+          },
+          {
+            "name": "NumberofVMs",
+            "label": "Number of VMs",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "Number of VMs to provision",
+            "options": [
+              {
+                "label": "1",
+                "value": "1",
+                "default": true
+              },
+              {
+                "label": "2",
+                "value": "2",
+                "default": false
+              },
+              {
+                "label": "3",
+                "value": "3",
+                "default": false
+              }
+            ]
+          },
+          {
+            "name": "flavor",
+            "label": "flavor",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "options": [
+              {
+                "value": "Standard",
+                "label": "Standard"
+              },
+              {
+                "value": "Advanced",
+                "label": "Advanced"
+              }
+            ]
+          }
+        ],
+        "flow": {
+          "conditions": [
+            {
+              "decision": {
+                "title": "Flavor",
+                "options": [
+                  {
+                    "case": "Standard",
+                    "sequence": {
+                      "0": "ibmpowere94de5bb",
+                      "1": "emailnot2812dc2b"
+                    }
+                  },
+                  {
+                    "case": "Advanced",
+                    "sequence": {
+                      "0": "ibmpower05e5e722",
+                      "1": "emailnotb38e5294"
+                    }
+                  }
+                ],
+                "id": "decision1f5b5773",
+                "mapped_parameter": "${parameters.flavor}"
+              }
+            }
+          ],
+          "templates": [
+            {
+              "IBM PowerVC Single Virtual Machine": {
+                "title": "IBM PowerVC Single Virtual Machine",
+                "template_name": "IBM PowerVC Single Virtual Machine",
+                "version": "master",
+                "id": "ibmpowere94de5bb",
+                "template_type": "Terraform",
+                "template_content_type": "OpenStack",
+                "template_provider": "OpenStack",
+                "instance_name": "",
+                "cloud_connection_name": "PowerVC",
+                "template_data_objects": {},
+                "template_params": {
+                  "openstack_image_id": "f523cfb3-38b7-4d91-955c-23428780ed3e",
+                  "number_of_instances": "1",
+                  "openstack_flavor_id": "b542658b-2de5-4bdd-998a-1e1fc168dcde",
+                  "openstack_network_name": "VLAN354",
+                  "image_id_username": "qsecofr",
+                  "image_id_password": "^(bGVtYW1lcm8=)",
+                  "pool": "VLAN354",
+                  "ibm_stack_name": "",
+                  "result": "0"
+                },
+                "outputs": [
+                  "single-vm-ip"
+                ]
+              }
+            },
+            {
+              "IBM PowerVC Single Virtual Machine": {
+                "title": "IBM PowerVC Single Virtual Machine",
+                "template_name": "IBM PowerVC Single Virtual Machine",
+                "version": "master",
+                "id": "ibmpower05e5e722",
+                "template_type": "Terraform",
+                "template_content_type": "OpenStack",
+                "template_provider": "OpenStack",
+                "instance_name": "",
+                "cloud_connection_name": "PowerVC",
+                "template_data_objects": {},
+                "template_params": {
+                  "openstack_image_id": "f523cfb3-38b7-4d91-955c-23428780ed3e",
+                  "number_of_instances": "1",
+                  "openstack_flavor_id": "b542658b-2de5-4bdd-998a-1e1fc168dcde",
+                  "openstack_network_name": "VLAN354",
+                  "image_id_username": "qsecofr",
+                  "image_id_password": "^(bGVtYW1lcm8=)",
+                  "pool": "VLAN354",
+                  "ibm_stack_name": ""
+                },
+                "outputs": [
+                  "single-vm-ip"
+                ]
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [
+            {
+              "emailnotification": {
+                "title": "Email to Admin",
+                "type": "email",
+                "id": "emailnot2812dc2b",
+                "sender": "MOPCloudAutomationManager",
+                "receiverList": "benoit.marolleau@fr.ibm.com",
+                "subject": "Your IBM i VM is Ready",
+                "body": "Your IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address:"
+              }
+            },
+            {
+              "emailnotification": {
+                "title": "Email to Admin",
+                "type": "email",
+                "id": "emailnotb38e5294",
+                "sender": "CAMadmin",
+                "receiverList": "benoit.marolleau@fr.ibm.com",
+                "subject": "IBM i VM : Ready",
+                "body": "The IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address:"
+              }
+            }
+          ],
+          "sequence": {
+            "0": "decision1f5b5773"
+          }
+        },
+        "output_parameters": []
+      }
+    ],
+    "plans": [
+      {
+        "name": "Standard - Dev/Test",
+        "description": "Standard Plan :  IBM i VM with 1 vCPU, 8GB RAM, 50 GB Disk (Sysbas) vSCSI Storage",
+        "plan_parameters": []
+      },
+      {
+        "name": "Advanced - QA",
+        "description": "Advanced Plan: IBM i VM with 2vCPU, 16GB RAM, 100GB Disk (Sysbas) - NPIV to SVC Storage",
+        "plan_parameters": []
+      }
+    ]
+  }
+}
