@@ -31,11 +31,11 @@
           "conditions": [],
           "templates": [
             {
-              "IBM  Single Virtual Machine": {
-                "title": "IBM PowerVC Single Virtual Machine_d08233",
+              "IBM PowerVC Single Virtual Machine": {
+                "title": "IBM PowerVC Single Virtual Machine_fa1915",
                 "template_name": "IBM PowerVC Single Virtual Machine",
                 "version": "master",
-                "id": "ibmpower304cc14a",
+                "id": "ibmpowerd9ffacc6",
                 "template_type": "Terraform",
                 "template_content_type": "OpenStack",
                 "template_provider": "OpenStack",
@@ -61,7 +61,7 @@
           "resthooks": [],
           "notifications": [],
           "sequence": {
-            "0": "ibmpower304cc14a"
+            "0": "ibmpowerd9ffacc6"
           }
         },
         "output_parameters": []
