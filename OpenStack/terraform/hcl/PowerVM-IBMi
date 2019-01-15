@@ -5,11 +5,11 @@
       "name": "PowerVM-IBMi",
       "description": "",
       "image": "serviceicon_1.svg",
-      "category": "PowerVM LPAR",
+      "category": "AI-Cloud",
       "bullets": [
         {
           "title": "Cloud Provider",
-          "description": "IBM Bluemix Platform"
+          "description": "IBM Power Platform"
         }
       ],
       "providerDisplayName": "IBM",
@@ -31,7 +31,7 @@
           "conditions": [],
           "templates": [
             {
-              "IBM PowerVC Single Virtual Machine": {
+              "IBM  Single Virtual Machine": {
                 "title": "IBM PowerVC Single Virtual Machine_d08233",
                 "template_name": "IBM PowerVC Single Virtual Machine",
                 "version": "master",
@@ -40,7 +40,7 @@
                 "template_content_type": "OpenStack",
                 "template_provider": "OpenStack",
                 "instance_name": "",
-                "cloud_connection_name": "PowerVC-MOP",
+                "cloud_connection_name": "PowerVC",
                 "template_data_objects": {},
                 "template_params": {
                   "openstack_image_id": "f523cfb3-38b7-4d91-955c-23428780ed3e",
