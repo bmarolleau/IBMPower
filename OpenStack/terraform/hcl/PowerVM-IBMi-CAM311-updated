@@ -145,8 +145,7 @@
                   "image_id_username": "qsecofr",
                   "image_id_password": "^(bGVtYW1lcm8=)",
                   "pool": "VLAN354",
-                  "ibm_stack_name": "${svc_instance.name}",
-                  "result": "0"
+                  "ibm_stack_name": "${svc_instance.name}"
                 },
                 "outputs": [
                   "single-vm-ip"
@@ -191,7 +190,7 @@
                 "sender": "MOPCloudAutomationManager",
                 "receiverList": "benoit.marolleau@fr.ibm.com",
                 "subject": "Your IBM i VM is Ready",
-                "body": "Your IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpowere94de5bb.outputs.single-vm-ip}"
+                "body": "Your IBM i VM is ready.\nProject Name: $svc_instance.name\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpowere94de5bb.output.single-vm-ip}"
               }
             },
             {
@@ -202,7 +201,7 @@
                 "sender": "CAMadmin",
                 "receiverList": "benoit.marolleau@fr.ibm.com",
                 "subject": "IBM i VM : Ready",
-                "body": "The IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address:${templates.ibmpower05e5e722.outputs.single-vm-ip}"
+                "body": "Your IBM i VM is ready.\nProject Name: $svc_instance.name\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpower05e5e722.output.single-vm-ip}"
               }
             }
           ],
@@ -210,7 +209,19 @@
             "0": "decision1f5b5773"
           }
         },
-        "output_parameters": []
+        "output_parameters": [
+          {
+            "name": "test",
+            "label": "ip",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "ip"
+          }
+        ]
       }
     ],
     "plans": [
