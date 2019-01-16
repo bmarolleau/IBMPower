@@ -190,7 +190,7 @@
                 "sender": "MOPCloudAutomationManager",
                 "receiverList": "benoit.marolleau@fr.ibm.com",
                 "subject": "Your IBM i VM is Ready",
-                "body": "Your IBM i VM is ready.\nProject Name: $svc_instance.name\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpowere94de5bb.output.single-vm-ip}"
+                "body": "Your IBM i VM is ready.\nProject Name: ${svc_instance.name}\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpowere94de5bb.output.single-vm-ip}"
               }
             },
             {
@@ -201,7 +201,7 @@
                 "sender": "CAMadmin",
                 "receiverList": "benoit.marolleau@fr.ibm.com",
                 "subject": "IBM i VM : Ready",
-                "body": "Your IBM i VM is ready.\nProject Name: $svc_instance.name\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpower05e5e722.output.single-vm-ip}"
+                "body": "Your IBM i VM is ready.\nProject Name: ${svc_instance.name}\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpower05e5e722.output.single-vm-ip}"
               }
             }
           ],
