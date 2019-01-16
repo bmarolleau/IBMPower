@@ -120,7 +120,7 @@
                   }
                 ],
                 "id": "decision1f5b5773",
-                "mapped_parameter": "${parameters.flavor}"
+                "mapped_parameter": "${input_parameters.flavor}"
               }
             }
           ],
@@ -134,18 +134,18 @@
                 "template_type": "Terraform",
                 "template_content_type": "OpenStack",
                 "template_provider": "OpenStack",
-                "instance_name": "",
+                "instance_name": "inst1",
                 "cloud_connection_name": "PowerVC",
                 "template_data_objects": {},
                 "template_params": {
-                  "openstack_image_id": "f523cfb3-38b7-4d91-955c-23428780ed3e",
+                  "openstack_image_id": "e60beed6-25cb-431b-8561-86f2fe10f3d6",
                   "number_of_instances": "1",
                   "openstack_flavor_id": "b542658b-2de5-4bdd-998a-1e1fc168dcde",
                   "openstack_network_name": "VLAN354",
                   "image_id_username": "qsecofr",
                   "image_id_password": "^(bGVtYW1lcm8=)",
                   "pool": "VLAN354",
-                  "ibm_stack_name": "",
+                  "ibm_stack_name": "${svc_instance.name}",
                   "result": "0"
                 },
                 "outputs": [
@@ -166,7 +166,7 @@
                 "cloud_connection_name": "PowerVC",
                 "template_data_objects": {},
                 "template_params": {
-                  "openstack_image_id": "f523cfb3-38b7-4d91-955c-23428780ed3e",
+                  "openstack_image_id": "e60beed6-25cb-431b-8561-86f2fe10f3d6",
                   "number_of_instances": "1",
                   "openstack_flavor_id": "b542658b-2de5-4bdd-998a-1e1fc168dcde",
                   "openstack_network_name": "VLAN354",
@@ -191,7 +191,7 @@
                 "sender": "MOPCloudAutomationManager",
                 "receiverList": "benoit.marolleau@fr.ibm.com",
                 "subject": "Your IBM i VM is Ready",
-                "body": "Your IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address:"
+                "body": "Your IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address: ${templates.ibmpowere94de5bb.outputs.single-vm-ip}"
               }
             },
             {
@@ -202,7 +202,7 @@
                 "sender": "CAMadmin",
                 "receiverList": "benoit.marolleau@fr.ibm.com",
                 "subject": "IBM i VM : Ready",
-                "body": "The IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address:"
+                "body": "The IBM i VM is ready.\nIBM i version:  ${parameters.OSVersion}\nCredentials: Usual Dev/Test \nIP Address:${templates.ibmpower05e5e722.outputs.single-vm-ip}"
               }
             }
           ],
