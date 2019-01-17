@@ -1,0 +1,190 @@
+{
+  "service": {
+    "specVersion": "v3",
+    "catalog_metadata": {
+      "name": "PowerAI-MOP-Service",
+      "description": "PowerAI as a service, with Proxy in a specific namespace and vlan (802.1Q) , and specific resources",
+      "image": "serviceicon_1.svg",
+      "category": "AI-Cloud",
+      "bullets": [
+        {
+          "title": "Cloud Provider",
+          "description": "IBM Bluemix Platform"
+        }
+      ],
+      "providerDisplayName": "IBM",
+      "longDescription": "",
+      "documentationUrl": "",
+      "supportUrl": "",
+      "bindable": false,
+      "updatable": "",
+      "author": "admin"
+    },
+    "tags": [],
+    "actions": [
+      {
+        "type": "provision",
+        "name": "Provision",
+        "description": "Default action for deployment of service",
+        "input_parameters": [
+          {
+            "name": "namespace-input-param",
+            "label": "namespace",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "powerai namespace",
+            "default": "default"
+          },
+          {
+            "name": "proxy-hostgroup-input-param",
+            "label": "proxy-hostgroup",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "proxy-hostgroup"
+          },
+          {
+            "name": "proxy-port-input-param",
+            "label": "proxy-port",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "proxy-port"
+          },
+          {
+            "name": "pwrai-passwd-input-param",
+            "label": "pwrai-password",
+            "customtype": "password",
+            "type": "password",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": true,
+            "description": "pwrai user password",
+            "default": "^(cGFzc3cwcmQ=)"
+          },
+          {
+            "name": "GPU-input-param",
+            "label": "GPU",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Number of GPU requested",
+            "default": "1"
+          }
+        ],
+        "flow": {
+          "conditions": [],
+          "templates": [
+            {
+              "ibm-charts/ibm-powerai": {
+                "title": "ibm-charts/ibm-powerai_8f0990",
+                "template_name": "ibm-powerai",
+                "version": "2.0.0",
+                "id": "ibmchartb7fa3b33",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "powerai154",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace-input-param}",
+                  "image-repository": "ibmcom/powerai",
+                  "image-tag": "1.5.4-all-ubuntu18.04",
+                  "service-type": "ClusterIP",
+                  "service-port": "22",
+                  "persistence-enabled": false,
+                  "persistence-useDynamicProvisioning": false,
+                  "poweraiPVC-name": "poweraivol",
+                  "poweraiPVC-accessMode": "ReadWriteMany",
+                  "poweraiPVC-existingClaimName": "",
+                  "poweraiPVC-storageClassName": "",
+                  "poweraiPVC-size": "8Gi",
+                  "resources-gpu": "${input_parameters.GPU-input-param}",
+                  "resources-gputype": "",
+                  "paiDistributed-mode": false,
+                  "paiDistributed-gpuPerHost": 4,
+                  "paiDistributed-sshKeySecret": "",
+                  "paiDistributed-useHostNetwork": false,
+                  "paiDistributed-sshPort": 22,
+                  "paiDistributed-useInfiniBand": false,
+                  "command": "sleep 1 ; sudo service ssh start ; echo pwrai:${input_parameters.namespace-input-param} | sudo chpasswd -e",
+                  "global-image-secretName": "",
+                  "license": "accept"
+                },
+                "outputs": [],
+                "template_repo": "ibm-charts",
+                "template_data_objects": {}
+              }
+            },
+            {
+              "pslc-charts/proxy-to-service": {
+                "title": "pslc-charts/proxy-to-service_8be615",
+                "template_name": "proxy-to-service",
+                "version": "1.0.1",
+                "id": "pslccharf3957ffb",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "proxy",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "cert-manager",
+                  "arch-amd64": "2 - No preference",
+                  "arch-ppc64le": "2 - No preference",
+                  "image-repository": "registry.gitlab.com/pslc/docker/proxy-to-service",
+                  "image-tag": "latest",
+                  "image-pullPolicy": "IfNotPresent",
+                  "image-secret": "pslc-gitlab.regkey",
+                  "proxy-hostgroup": "${input_parameters.proxy-hostgroup-input-param}",
+                  "proxy-proxy_port": "${input_parameters.proxy-port-input-param}",
+                  "proxy-service_namespace": "${input_parameters.namespace-input-param}",
+                  "proxy-service": "${svc_instance.name}-00-powerai154-ibm-powerai",
+                  "proxy-service_protocol": "TCP",
+                  "proxy-service_port": "22",
+                  "resources-requests-memory": "200Mi",
+                  "resources-requests-cpu": "200m",
+                  "resources-limits-memory": "16Gi",
+                  "resources-limits-cpu": "16000m"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [],
+          "sequence": {
+            "0": "ibmchartb7fa3b33",
+            "1": "pslccharf3957ffb"
+          }
+        },
+        "output_parameters": []
+      }
+    ],
+    "plans": [
+      {
+        "name": "Standard",
+        "description": "To deploy a Standard plan",
+        "actions": [],
+        "plan_parameters": []
+      }
+    ]
+  }
+}
