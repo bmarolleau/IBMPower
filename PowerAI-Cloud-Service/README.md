@@ -1,6 +1,6 @@
 ## PowerAI-Cloud-Service infrastructure
 
-Created 6/29/18 by BMA. for PowerAI-Cloud-Service
+Created 6/29/18 by BMA. Authors: Benoit Marolleau /  Sebastien Chabrolles - IBM Montpellier - PowerAI-Cloud-Service
 
 
 ## Design Decisions
