@@ -32,23 +32,24 @@
             "label": "namespace",
             "customtype": "string",
             "type": "string",
-            "immutable": false,
-            "hidden": false,
+            "immutable": true,
+            "hidden": true,
             "required": true,
             "secured": false,
             "description": "powerai namespace",
-            "default": "default"
+            "default": "ns${input_parameters.ONN}"
           },
           {
             "name": "proxy-hostgroup-input-param",
             "label": "proxy-hostgroup",
             "customtype": "string",
             "type": "string",
-            "immutable": false,
-            "hidden": false,
+            "immutable": true,
+            "hidden": true,
             "required": true,
             "secured": false,
-            "description": "proxy-hostgroup"
+            "description": "proxy-hostgroup",
+            "default": "proxyclient${input_parameters.ONN}"
           },
           {
             "name": "proxy-port-input-param",
@@ -71,7 +72,7 @@
             "required": true,
             "secured": true,
             "description": "pwrai user password",
-            "default": "^(cGFzc3cwcmQ=)"
+            "default": ""
           },
           {
             "name": "GPU-input-param",
@@ -84,6 +85,18 @@
             "secured": false,
             "description": "Number of GPU requested",
             "default": "1"
+          },
+          {
+            "name": "ONN",
+            "label": "ONN",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "ONN (vlan ID)",
+            "default": ""
           }
         ],
         "flow": {
@@ -98,7 +111,7 @@
                 "template_type": "Helm",
                 "template_content_type": "IBM Cloud Private",
                 "template_provider": "IBM Cloud Private",
-                "instance_name": "powerai154",
+                "instance_name": "powerai",
                 "cloud_connection_name": "ICP-AI-Cloud",
                 "template_dataobjects": {},
                 "template_params": {
@@ -122,7 +135,7 @@
                   "paiDistributed-useHostNetwork": false,
                   "paiDistributed-sshPort": 22,
                   "paiDistributed-useInfiniBand": false,
-                  "command": "sleep 1 ; sudo service ssh start ; echo pwrai:${input_parameters.namespace-input-param} | sudo chpasswd -e",
+                  "command": "sleep 1 ; sudo service ssh start ; echo \\'pwrai:${input_parameters.pwrai-passwd-input-param}\\' | sudo chpasswd -m",
                   "global-image-secretName": "",
                   "license": "accept"
                 },
@@ -154,7 +167,7 @@
                   "proxy-hostgroup": "${input_parameters.proxy-hostgroup-input-param}",
                   "proxy-proxy_port": "${input_parameters.proxy-port-input-param}",
                   "proxy-service_namespace": "${input_parameters.namespace-input-param}",
-                  "proxy-service": "${svc_instance.name}-00-powerai154-ibm-powerai",
+                  "proxy-service": "${svc_instance.name}-00-powerai-ibm-powerai",
                   "proxy-service_protocol": "TCP",
                   "proxy-service_port": "22",
                   "resources-requests-memory": "200Mi",
