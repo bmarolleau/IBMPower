@@ -186,6 +186,74 @@
                 "default": false
               }
             ]
+          },
+          {
+            "name": "NodePort",
+            "label": "NodePort",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "NodePort",
+            "default": ""
+          },
+          {
+            "name": "Ingress-host",
+            "label": "Ingress-host",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "Ingress-host",
+            "default": ""
+          },
+          {
+            "name": "tolerations-enabled",
+            "label": "tolerations-enabled",
+            "customtype": "boolean",
+            "type": "boolean",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "true"
+          },
+          {
+            "name": "toleration-key",
+            "label": "toleration-key",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "firestorne"
+          },
+          {
+            "name": "tolerations-value",
+            "label": "tolerations-value",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "true"
+          },
+          {
+            "name": "tolerations-effect",
+            "label": "tolerations-effect",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "NoSchedule"
           }
         ],
         "flow": {
@@ -255,9 +323,9 @@
                 "template_params": {
                   "namespace": "${input_parameters.namespace}",
                   "resources-limits-gpu": "${input_parameters.GPU}",
-                  "resources-limits-memory": "10G",
+                  "resources-limits-memory": "32G",
                   "resources-requests-gpu": "${input_parameters.GPU}",
-                  "resources-requests-memory": "10G",
+                  "resources-requests-memory": "32G",
                   "persistence-enabled": true,
                   "daiPVC-existingClaimName": "${templates.pslccharfda00102.instance_name}-${templates.pslccharfda00102.template_name}",
                   "secretLIC": "${input_parameters.LICSecret}",
@@ -275,7 +343,13 @@
                   "daiPVC-name": "daivol",
                   "daiPVC-accessMode": "ReadWriteMany",
                   "daiPVC-storageClassName": "",
-                  "size": "8Gi"
+                  "size": "8Gi",
+                  "service-hostname": "${input_parameters.Ingress-host}",
+                  "service-nodePort": "${input_parameters.NodePort}",
+                  "tolerations-enabled": "${input_parameters.tolerations-enabled}",
+                  "tolerations-key": "${input_parameters.toleration-key}",
+                  "tolerations-value": "${input_parameters.tolerations-value}",
+                  "tolerations-effect": "${input_parameters.tolerations-effect}"
                 },
                 "outputs": [],
                 "template_repo": "pslc-charts"
