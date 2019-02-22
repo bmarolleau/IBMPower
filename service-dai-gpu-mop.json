@@ -231,7 +231,7 @@
             "hidden": false,
             "required": false,
             "secured": false,
-            "default": "firestorne"
+            "default": "firestone"
           },
           {
             "name": "tolerations-value",
