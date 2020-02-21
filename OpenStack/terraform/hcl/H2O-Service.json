@@ -1,1 +1,492 @@
-
+{
+  "service": {
+    "specVersion": "v3",
+    "catalog_metadata": {
+      "name": "DriverlessAI-MOP-Service-v2",
+      "description": "DAI as a service, with Proxy in a specific namespace and vlan (802.1Q) , and specific resources",
+      "image": "serviceicon_1.svg",
+      "category": "AI-Cloud",
+      "bullets": [
+        {
+          "title": "Cloud Provider",
+          "description": "IBM Montpellier - Private AI Cloud"
+        }
+      ],
+      "providerDisplayName": "IBM",
+      "longDescription": "",
+      "documentationUrl": "",
+      "supportUrl": "",
+      "bindable": false,
+      "updatable": "",
+      "author": "admin"
+    },
+    "tags": [],
+    "actions": [
+      {
+        "type": "provision",
+        "name": "Provision",
+        "description": "Default action for deployment of service",
+        "input_parameters": [
+          {
+            "name": "namespace",
+            "label": "namespace",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "powerai namespace",
+            "default": "ns${input_parameters.ONN}"
+          },
+          {
+            "name": "proxy-hostgroup",
+            "label": "proxy-hostgroup",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "proxy-hostgroup",
+            "default": "proxyclient${input_parameters.ONN}"
+          },
+          {
+            "name": "ONN",
+            "label": "ONN",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "ONN (vlan ID)",
+            "default": "713"
+          },
+          {
+            "name": "paivol-size",
+            "label": "PowerAI Volume Size",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Persistent Volume Size (ex: 10Gi)",
+            "default": "8Gi"
+          },
+          {
+            "name": "paivol-nfs-server",
+            "label": "NFS server",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "NFS server IP or Hostname",
+            "default": "maic-storage"
+          },
+          {
+            "name": "paivol-nfs-path",
+            "label": "NFS path",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Path directory must exist on the server",
+            "default": "/export/dai/test"
+          },
+          {
+            "name": "paivol-accessModes",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": true,
+            "secured": false,
+            "default": "ReadWriteMany"
+          },
+          {
+            "name": "email",
+            "label": "send email to",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false
+          },
+          {
+            "name": "LICSecret",
+            "label": "Optional License File (Secret)",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "DAI Lic file if available (Secret has to be present in the current namespace).",
+            "default": "dai-mop-licenses"
+          },
+          {
+            "name": "GPU",
+            "label": "GPU",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "GPU desired and requested",
+            "options": [
+              {
+                "label": "0",
+                "value": "0",
+                "default": false
+              },
+              {
+                "label": "1",
+                "value": "1",
+                "default": true
+              },
+              {
+                "label": "2",
+                "value": "2",
+                "default": false
+              },
+              {
+                "label": "4",
+                "value": "4",
+                "default": false
+              }
+            ]
+          },
+          {
+            "name": "tolerations-enabled",
+            "label": "tolerations-enabled",
+            "customtype": "boolean",
+            "type": "boolean",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "true"
+          },
+          {
+            "name": "toleration-key",
+            "label": "toleration-key",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "firestone"
+          },
+          {
+            "name": "tolerations-value",
+            "label": "tolerations-value",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "true"
+          },
+          {
+            "name": "tolerations-effect",
+            "label": "tolerations-effect",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "NoSchedule"
+          },
+          {
+            "name": "limits-memory",
+            "label": "limits-memory",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "limits-memory",
+            "default": "64G"
+          },
+          {
+            "name": "memory-requests",
+            "label": "memory-requests",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "memory-requests",
+            "default": "32G"
+          },
+          {
+            "name": "service_type",
+            "label": "service_type",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": false,
+            "secured": false,
+            "default": "ClusterIP"
+          },
+          {
+            "name": "nodeSelectorLabel",
+            "label": "nodeSelectorLabel-enabled",
+            "customtype": "boolean",
+            "type": "boolean",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "enable nodeSelector Label",
+            "default": "false"
+          },
+          {
+            "name": "nodeSelectorLabel-key",
+            "label": "nodeSelectorLabel-key",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "Node Selector - ex for labs with K80 nodes - dai-lab=prefered",
+            "default": "gputype"
+          },
+          {
+            "name": "nodeSelectorLabel-value",
+            "label": "nodeSelectorLabel-value",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "Node Selector Value - ex: K80 nodes are labeled dai-lab=prefered",
+            "default": "p100"
+          },
+          {
+            "name": "proxy-ip",
+            "label": "Ingress Proxy IP",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Proxy Node IP bound to the VLAN/ns - ex: 10.7.12.200 , 10.7.13.200 etc.",
+            "default": "10.7.13.200"
+          }
+        ],
+        "flow": {
+          "conditions": [],
+          "templates": [
+            {
+              "pslc-charts/persistent-volume-nfs": {
+                "title": "pslc-charts/persistent-volume-nfs_b2cd4e",
+                "template_name": "persistent-volume-nfs",
+                "version": "0.1.1",
+                "id": "pslcchar8a06e91d",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "pv",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace}",
+                  "accessModes": "${input_parameters.paivol-accessModes}",
+                  "capacity": "${input_parameters.paivol-size}",
+                  "nfs-server": "${input_parameters.paivol-nfs-server}",
+                  "nfs-path": "${input_parameters.paivol-nfs-path}",
+                  "persistentVolumeReclaimPolicy": "Retain",
+                  "volume-name": "${svc_instance.name}"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            },
+            {
+              "pslc-charts/persistent-volume-claim": {
+                "title": "pslc-charts/persistent-volume-claim_0eb46b",
+                "template_name": "persistent-volume-claim",
+                "version": "0.1.0",
+                "id": "pslccharfda00102",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "pvc",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace}",
+                  "accessModes": "${input_parameters.paivol-accessModes}",
+                  "capacity": "${input_parameters.paivol-size}",
+                  "volume-name": "${templates.pslcchar8a06e91d.volume-name}"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            },
+            {
+              "pslc-charts/dai-gpu-mop": {
+                "title": "pslc-charts/dai-gpu-mop_a185ea",
+                "template_name": "dai-gpu-mop",
+                "version": "1.8.4",
+                "id": "pslcchar5a44b840",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "dai",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace}",
+                  "replicaCount": 1,
+                  "image-repository": "registry.gitlab.com/pslc/docker/dai-centos7-ppc64le",
+                  "image-tag": "latest",
+                  "image-pullPolicy": "IfNotPresent",
+                  "image-secret": "pslc-gitlab.regkey",
+                  "service-type": "${input_parameters.service_type}",
+                  "service-port": 12345,
+                  "service-hostname": "${svc_instance.name}.${input_parameters.proxy-ip}.nip.io",
+                  "ingress-enabled": "true",
+                  "ingress-path": "/",
+                  "secretLIC": "${input_parameters.LICSecret}",
+                  "ingress-hosts-0": "${svc_instance.name}.${input_parameters.proxy-ip}.nip.io",
+                  "tolerations-enabled": true,
+                  "tolerations-key": "firestone",
+                  "tolerations-value": "true",
+                  "tolerations-effect": "NoSchedule",
+                  "resources-limits-gpu": "${input_parameters.GPU}",
+                  "resources-limits-memory": "${input_parameters.limits-memory}",
+                  "resources-requests-gpu": "${input_parameters.GPU}",
+                  "resources-requests-memory": "${input_parameters.memory-requests}",
+                  "persistence-enabled": "true",
+                  "persistence-useDynamicProvisioning": false,
+                  "daiPVC-name": "daivol",
+                  "daiPVC-accessMode": "ReadWriteMany",
+                  "daiPVC-existingClaimName": "${templates.pslccharfda00102.instance_name}-${templates.pslccharfda00102.template_name}",
+                  "daiPVC-storageClassName": "",
+                  "size": "8Gi",
+                  "arch-ppc64le": "2 - No preference",
+                  "nodeSelectorLabel-enabled": "${input_parameters.nodeSelectorLabel}",
+                  "nodeSelectorLabel-key": "${input_parameters.nodeSelectorLabel-key}",
+                  "nodeSelectorLabel-value": "${input_parameters.nodeSelectorLabel-value}",
+                  "service-nodePort": ""
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [
+            {
+              "emailnotification": {
+                "title": "emailnotification_f5e5ae",
+                "type": "email",
+                "receiverList": "${input_parameters.email}",
+                "id": "emailnot7eac895b",
+                "sender": "CAMadmin",
+                "copyToList": "",
+                "subject": "h2o.ai DAI Ready! ${svc_instance.name}",
+                "body": "Your DAI instance is ready.\nProject Name: ${svc_instance.name}\n\n Access your Driverless AI on POWER with GPU using : http://${svc_instance.name}.${input_parameters.proxy-ip}.nip.io (admin/admin) \n once connected to the MOP VPN\n\n Data mounted from : ${input_parameters.paivol-nfs-server}:${input_parameters.paivol-nfs-path} (limited to ${input_parameters.paivol-size} GiB)"
+              }
+            }
+          ],
+          "sequence": {
+            "0": "pslcchar8a06e91d",
+            "1": "pslccharfda00102",
+            "2": "pslcchar5a44b840",
+            "3": "emailnot7eac895b"
+          }
+        },
+        "output_parameters": []
+      }
+    ],
+    "plans": [
+      {
+        "name": "Standard",
+        "description": "h2o.ai Driverless AI latest version -  32GB Memory and GPUs",
+        "actions": [],
+        "plan_parameters": [
+          {
+            "name": "paivol-nfs-server",
+            "label": "NFS server",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "NFS server IP or Hostname",
+            "default": "maic-storage"
+          },
+          {
+            "name": "paivol-accessModes",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": true,
+            "secured": false,
+            "default": "ReadWriteMany"
+          },
+          {
+            "name": "email",
+            "label": "send email to",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false
+          },
+          {
+            "name": "paivol-size",
+            "label": "PowerAI Volume Size",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Persistent Volume Size (ex: 10Gi)",
+            "default": "8Gi"
+          },
+          {
+            "name": "LICSecret",
+            "label": "Optional License File (Secret)",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "DAI Lic file if available (Secret has to be present in the current namespace).",
+            "default": "dai-mop-licenses"
+          }
+        ]
+      }
+    ]
+  },
+  "tagId": "5c34c4384834e1001c0b6e82"
+}
