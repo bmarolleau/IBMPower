@@ -1,0 +1,470 @@
+{
+  "service": {
+    "specVersion": "v3",
+    "catalog_metadata": {
+      "name": "PowerAI-MOP-Service-v2",
+      "description": "PowerAI as a service, with Proxy in a specific namespace and vlan (802.1Q) , and specific resources",
+      "image": "serviceicon_7.svg",
+      "category": "AI-Cloud",
+      "bullets": [
+        {
+          "title": "Cloud Provider",
+          "description": "IBM Bluemix Platform"
+        }
+      ],
+      "providerDisplayName": "IBM",
+      "longDescription": "",
+      "documentationUrl": "",
+      "supportUrl": "",
+      "bindable": false,
+      "updatable": "",
+      "author": "admin"
+    },
+    "tags": [],
+    "actions": [
+      {
+        "type": "provision",
+        "name": "Provision",
+        "description": "Default action for deployment of service",
+        "input_parameters": [
+          {
+            "name": "namespace",
+            "label": "namespace",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "powerai namespace",
+            "default": "ns${input_parameters.ONN}"
+          },
+          {
+            "name": "proxy-hostgroup",
+            "label": "proxy-hostgroup",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "proxy-hostgroup",
+            "default": "proxyclient${input_parameters.namespace}"
+          },
+          {
+            "name": "ONN",
+            "label": "ONN",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "ONN (vlan ID)",
+            "default": ""
+          },
+          {
+            "name": "proxy-ip",
+            "label": "proxy-ip",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "default": "",
+            "description": "IP address of the Ingress and PORT Proxy (ssh)"
+          },
+          {
+            "name": "proxy-port",
+            "label": "proxy-port-to-ssh",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "Port number on the Proxy which will redirect to PowerAI"
+          },
+          {
+            "name": "service_name",
+            "label": "service_name",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "Additional service name (optional)"
+          },
+          {
+            "name": "service_port",
+            "label": "service_port",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "additional service port (optional)"
+          },
+          {
+            "name": "pwrai-passwd",
+            "label": "pwrai-password",
+            "customtype": "password",
+            "type": "password",
+            "immutable": true,
+            "hidden": true,
+            "required": true,
+            "secured": true,
+            "description": "pwrai user password",
+            "default": "^(cG93ZXJsaW51eA==)"
+          },
+          {
+            "name": "paivol-size",
+            "label": "PowerAI Volume Size",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": true,
+            "secured": false,
+            "description": "Persistent Volume Size (ex: 10Gi)",
+            "default": "100Gi"
+          },
+          {
+            "name": "paivol-nfs-server",
+            "label": "NFS server",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "NFS server IP or Hostname",
+            "default": "maic-storage"
+          },
+          {
+            "name": "paivol-nfs-path",
+            "label": "NFS path",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Path directory must exist on the server and owned by id (2051:2051)",
+            "default": "/export/test"
+          },
+          {
+            "name": "mountPath",
+            "label": "mountPath",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "PVC mount path inside container",
+            "default": "/powerai/data"
+          },
+          {
+            "name": "paivol-accessModes",
+            "customtype": "string",
+            "type": "string",
+            "immutable": true,
+            "hidden": true,
+            "required": true,
+            "secured": false,
+            "default": "ReadWriteMany"
+          },
+          {
+            "name": "email",
+            "label": "send email to",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false
+          },
+          {
+            "name": "resource-gputype",
+            "label": "resource-gputype",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "options": [
+              {
+                "label": "k80",
+                "value": "k80",
+                "default": false
+              },
+              {
+                "label": "p100",
+                "value": "p100",
+                "default": false
+              },
+              {
+                "label": "v100",
+                "value": "v100",
+                "default": false
+              }
+            ]
+          },
+          {
+            "name": "GPU",
+            "label": "GPU",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "Number of GPU requested",
+            "default": "1"
+          },
+          {
+            "name": "label-group",
+            "label": "label-group",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "addtional k8s label with key group"
+          },
+          {
+            "name": "imageTagName",
+            "label": "imageTagName",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "description": "docker hub image name https://hub.docker.com/r/ibmcom/powerai/tags",
+            "default": "1.6.1-all-ubuntu18.04-py3"
+          }
+        ],
+        "flow": {
+          "conditions": [],
+          "templates": [
+            {
+              "pslc-charts/persistent-volume-nfs": {
+                "title": "pslc-charts/persistent-volume-nfs_b2cd4e",
+                "template_name": "persistent-volume-nfs",
+                "version": "0.1.1",
+                "id": "pslcchar8a06e91d",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "pv",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace}",
+                  "accessModes": "${input_parameters.paivol-accessModes}",
+                  "capacity": "${input_parameters.paivol-size}",
+                  "nfs-server": "${input_parameters.paivol-nfs-server}",
+                  "nfs-path": "${input_parameters.paivol-nfs-path}",
+                  "persistentVolumeReclaimPolicy": "Retain",
+                  "volume-name": "${svc_instance.name}"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            },
+            {
+              "pslc-charts/persistent-volume-claim": {
+                "title": "pslc-charts/persistent-volume-claim_0eb46b",
+                "template_name": "persistent-volume-claim",
+                "version": "0.1.0",
+                "id": "pslccharfda00102",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "pvc",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace}",
+                  "accessModes": "${input_parameters.paivol-accessModes}",
+                  "capacity": "${input_parameters.paivol-size}",
+                  "volume-name": "${templates.pslcchar8a06e91d.volume-name}"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            },
+            {
+              "pslc-charts/ibm-powerai-mop": {
+                "title": "pslc-charts/ibm-powerai-mop_2968df",
+                "template_name": "ibm-powerai-mop",
+                "version": "2.0.1",
+                "id": "pslccharbca72405",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "powerai",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "${input_parameters.namespace}",
+                  "image-repository": "ibmcom/powerai",
+                  "image-tag": "${input_parameters.imageTagName}",
+                  "label-group": "${input_parameters.label-group}",
+                  "service-type": "ClusterIP",
+                  "service-port": "${input_parameters.service_port}",
+                  "service-name": "${input_parameters.service_name}",
+                  "service-hostname": "${svc_instance.name}.${input_parameters.proxy-ip}.nip.io",
+                  "persistence-enabled": "true",
+                  "persistence-useDynamicProvisioning": false,
+                  "poweraiPVC-name": "pvc",
+                  "poweraiPVC-accessMode": "ReadWriteMany",
+                  "poweraiPVC-existingClaimName": "${templates.pslccharfda00102.instance_name}-${templates.pslccharfda00102.template_name}",
+                  "poweraiPVC-storageClassName": "",
+                  "poweraiPVC-size": "${input_parameters.paivol-size}",
+                  "poweraiPVC-mountPath": "${input_parameters.mountPath}",
+                  "resources-gpu": "${input_parameters.GPU}",
+                  "resources-gputype": "${input_parameters.resource-gputype}",
+                  "paiDistributed-mode": false,
+                  "paiDistributed-gpuPerHost": 4,
+                  "paiDistributed-sshKeySecret": "",
+                  "paiDistributed-useHostNetwork": false,
+                  "paiDistributed-sshPort": 22,
+                  "paiDistributed-useInfiniBand": false,
+                  "command": "echo start ; echo 'export PATH=$PATH:/usr/local/nvidia/bin' >> /home/pwrai/.profile ; sudo ldconfig ; [ -f ${input_parameters.mountPath}/powerai.init ] && source ${input_parameters.mountPath}/powerai.init; /opt/anaconda3/bin/conda install -vv --yes jupyterlab=0.35.5=py36hf63ae98_0 | tee /powerai/data/.conda-install-jupyterlab.log 2>&1 ; /opt/anaconda3/bin/jupyter lab --ip=$(hostname) --no-browser  --notebook-dir=${input_parameters.mountPath} --config=${input_parameters.mountPath}/.jupyter/jupyter_notebook_config.json",
+                  "global-image-secretName": "",
+                  "license": "accept"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            },
+            {
+              "pslc-charts/proxy-to-service": {
+                "title": "pslc-charts/proxy-to-service_887004ff",
+                "template_name": "proxy-to-service",
+                "version": "1.0.1",
+                "id": "pslcchar887004ff",
+                "template_type": "Helm",
+                "template_content_type": "IBM Cloud Private",
+                "template_provider": "IBM Cloud Private",
+                "instance_name": "proxy",
+                "cloud_connection_name": "ICP-AI-Cloud",
+                "template_dataobjects": {},
+                "template_params": {
+                  "namespace": "kube-system",
+                  "arch-amd64": "2 - No preference",
+                  "arch-ppc64le": "2 - No preference",
+                  "image-repository": "registry.gitlab.com/pslc/docker/proxy-to-service",
+                  "image-tag": "latest",
+                  "image-pullPolicy": "IfNotPresent",
+                  "image-secret": "pslc-gitlab.regkey",
+                  "proxy-hostgroup": "${input_parameters.proxy-hostgroup}",
+                  "proxy-proxy_port": "${input_parameters.proxy-port}",
+                  "proxy-service_namespace": "${input_parameters.namespace}",
+                  "proxy-service": "${templates.pslccharbca72405.instance_name}-${templates.pslccharbca72405.template_name}",
+                  "proxy-service_protocol": "TCP",
+                  "proxy-service_port": "22",
+                  "resources-requests-memory": "200Mi",
+                  "resources-requests-cpu": "200m",
+                  "resources-limits-memory": "4Gi",
+                  "resources-limits-cpu": "16000m"
+                },
+                "outputs": [],
+                "template_repo": "pslc-charts",
+                "template_data_objects": {}
+              }
+            }
+          ],
+          "resthooks": [],
+          "notifications": [
+            {
+              "emailnotification": {
+                "title": "emailnotification_f5e5ae",
+                "type": "email",
+                "receiverList": "${input_parameters.email}",
+                "id": "emailnot7eac895b",
+                "sender": "CAMadmin",
+                "copyToList": "",
+                "subject": "PowerAI Ready!",
+                "body": "Your PowerAI instance is ready.\n\nProject Name: ${svc_instance.name}\n\n- PowerAI version: ${templates.pslccharbca72405.image-repository}:${templates.pslccharbca72405.image-tag} \n- GPU Resources: ${input_parameters.GPU} ${input_parameters.resource-gputype}\n- Storage: ${input_parameters.paivol-nfs-server}:${input_parameters.paivol-nfs-path} (limited to ${input_parameters.paivol-size} GiB)\n\n- Access your PowerAI using : http://${svc_instance.name}.${input_parameters.proxy-ip}.nip.io\n> If you start SSH in the container, you can connect to it with \"ssh -p ${input_parameters.proxy-port} pwrai@${input_parameters.proxy-ip}\""
+              }
+            }
+          ],
+          "sequence": {
+            "0": "pslcchar8a06e91d",
+            "1": "pslccharfda00102",
+            "2": "pslccharbca72405",
+            "3": "pslcchar887004ff",
+            "4": "emailnot7eac895b"
+          }
+        },
+        "output_parameters": []
+      }
+    ],
+    "plans": [
+      {
+        "name": "0- Standard",
+        "description": "To deploy a Standard plan",
+        "actions": [],
+        "plan_parameters": [
+          {
+            "name": "paivol-nfs-server",
+            "label": "NFS server",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": true,
+            "secured": false,
+            "description": "NFS server IP or Hostname",
+            "default": "maic-storage"
+          }
+        ]
+      },
+      {
+        "name": "1- Advanced: Use a specific GPU type",
+        "description": "Allow to stick the powerAI to a specific GPU type (v100, p100 ...)",
+        "plan_parameters": [
+          {
+            "name": "resource-gputype",
+            "label": "resource-gputype",
+            "customtype": "string",
+            "type": "string",
+            "immutable": false,
+            "hidden": false,
+            "required": false,
+            "secured": false,
+            "options": [
+              {
+                "label": "k80",
+                "value": "k80",
+                "default": false
+              },
+              {
+                "label": "p100",
+                "value": "p100",
+                "default": false
+              },
+              {
+                "label": "v100",
+                "value": "v100",
+                "default": false
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
